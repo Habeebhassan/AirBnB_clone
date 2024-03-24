@@ -217,7 +217,16 @@ class HBNBCommand(cmd.Cmd):
 
 
 def validate_classname(args, check_id=False):
-    """Performs checks on args to validate the class name entry.
+    """Validates the class name and instance id.
+    
+    Args:
+        args (list): A list of arguments containing class name and instance id.
+        check_id (bool, optional): Whether to check the instance id. 
+                                    Defaults to False.
+    
+    Returns:
+        bool: True if the class name and (if required) the instance id are valid, 
+              False otherwise.
     """
     if len(args) < 1:
         print("** class name missing **")
@@ -225,4 +234,82 @@ def validate_classname(args, check_id=False):
     if args[0] not in current_classes.keys():
         print("** class doesn't exist **")
         return False
+    if len(args) < 2 and check_id:
+        print("** instance id missing **")
+        return False
+    return True
 
+
+def validate_attrs(args):
+    """Validates the attribute name and value.
+    
+    Args:
+        args (list): A list of arguments containing attribute name and value.
+    
+    Returns:
+        bool: True if the attribute name and value are valid, False otherwise.
+    """
+    if len(args) < 3:
+        print("** attribute name missing **")
+        return False
+    if len(args) < 4:
+        print("** value missing **")
+        return False
+    return True
+
+
+def is_float(x):
+    """Checks if `x` is a float number.
+
+    Args:
+        x (any): The value to check.
+
+    Returns:
+        bool: True if `x` is a float, False otherwise.
+    """
+    try:
+        float(x)
+    except (TypeError, ValueError):
+        return False
+    else:
+        return True
+
+
+def is_int(x):
+    """Checks if `x` is an integer number.
+
+    Args:
+        x (any): The value to check.
+
+    Returns:
+        bool: True if `x` is an integer, False otherwise.
+    """
+    try:
+        int(x)
+    except (TypeError, ValueError):
+        return False
+    else:
+        return True
+
+
+def parse_str(arg):
+    """Parse `arg` to an `int`, `float`, or `string`.
+
+    Args:
+        arg (str): The input string to parse.
+
+    Returns:
+        Union[int, float, str]: Parsed value as int, float, or string.
+    """
+    parsed = re.sub("\"", "", arg)
+
+    if is_int(parsed):
+        return int(parsed)
+    elif is_float(parsed):
+        return float(parsed)
+    else:
+        return arg
+
+
+if __name__ == "__main__":
+    HBNBCommand().cmdloop()
