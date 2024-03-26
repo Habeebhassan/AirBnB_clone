@@ -4,7 +4,7 @@
 
 # Execution
 ## The project comprises of both interactive and non -interactive mode detailed with example below:
-
+'''
 - Interactive Mode
 
 $ ./console.py
@@ -18,9 +18,10 @@ EOF  help  quit
 (hbnb)
 (hbnb) quit
 $
+'''
 
 - Non- interactive Mode
-
+'''
 $ echo "help" | ./console.py
 (hbnb)
 
@@ -40,5 +41,6 @@ Documented commands (type help <topic>):
 EOF  help  quit
 (hbnb)
 $
+'''
 
 
